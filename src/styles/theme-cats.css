@@ -52,7 +52,13 @@
   --nav-bd: #dce7f8;
   --nav-on: #ffd6e5;
   --shadow: 0 8px 26px rgba(70, 95, 150, .26);
-  --fade: linear-gradient(rgba(204, 218, 242, 0), #ccdaf2 62%);
+
+  /* La hoja: la superficie sobre la que vive TODO el contenido */
+  --sheet: #ffffff;
+  --sheet-edge: #f2d7e3;  /* las dos líneas verticales que la delimitan */
+  --sheet-rule: #eef3fb;  /* la pauta horizontal, como papel de cuaderno */
+
+  --fade: linear-gradient(rgba(255, 255, 255, 0), #ffffff 62%);
 
   /* Todo más blandito */
   --r-card: 26px;
@@ -69,6 +75,46 @@
 :root[data-skin="cats"] body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg fill='%23b4c8e8'%3E%3Cpath d='M44 44l-1.8-10 9 5.2z'/%3E%3Cpath d='M66 44l1.8-10-9 5.2z'/%3E%3Cellipse cx='55' cy='52' rx='13.5' ry='11.5'/%3E%3Cpath d='M62 64q12-2 10-15' stroke='%23b4c8e8' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3Cg fill='%23b4c8e8' opacity='.85'%3E%3Cpath d='M144 150l-1.6-9 8 4.6z'/%3E%3Cpath d='M164 150l1.6-9-8 4.6z'/%3E%3Cellipse cx='154' cy='157' rx='12' ry='10.5'/%3E%3C/g%3E%3Cg fill='%23f6bdd3'%3E%3Cellipse cx='156' cy='52' rx='4.4' ry='5.3'/%3E%3Ccircle cx='149' cy='43' r='1.9'/%3E%3Ccircle cx='154.5' cy='39.5' r='1.9'/%3E%3Ccircle cx='160' cy='40.5' r='1.9'/%3E%3Ccircle cx='164' cy='45' r='1.8'/%3E%3Cellipse cx='50' cy='152' rx='4' ry='4.8' opacity='.9'/%3E%3Ccircle cx='44' cy='144' r='1.7' opacity='.9'/%3E%3Ccircle cx='49' cy='140.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='54' cy='141.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='58' cy='145.5' r='1.6' opacity='.9'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 200px 200px;
+}
+
+/* ---------- 1b. La hoja ----------
+   El contenido es una columna vertical, así que se le da una superficie
+   propia: una hoja de papel centrada, con dos líneas verticales que la
+   delimitan y una pauta horizontal muy tenue. El estampado de gatos pasa
+   a vivir ALREDEDOR, no debajo del texto — que era lo que hacía ilegibles
+   los títulos pequeños. */
+
+:root[data-skin="cats"] main {
+  min-height: 100vh;
+  border-left: 1.5px solid var(--sheet-edge);
+  border-right: 1.5px solid var(--sheet-edge);
+  background-color: var(--sheet);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 33px,
+    var(--sheet-rule) 33px 34px
+  );
+  box-shadow: 0 0 38px rgba(70, 95, 150, .16);
+}
+
+/* El degradado del pie se recorta al ancho de la hoja, o taparía el fondo. */
+:root[data-skin="cats"] .fade {
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 480px);
+}
+
+/* El panel de añadir recibe el mismo tratamiento: hoja centrada
+   sobre el fondo azul, en vez de ocupar toda la pantalla. */
+:root[data-skin="cats"] #add { padding-left: 0; padding-right: 0; }
+
+:root[data-skin="cats"] .ac {
+  min-height: 100%;
+  padding: 6px 16px 28px;
+  border-left: 1.5px solid var(--sheet-edge);
+  border-right: 1.5px solid var(--sheet-edge);
+  background: var(--sheet);
+  box-shadow: 0 0 38px rgba(70, 95, 150, .16);
 }
 
 /* Las superficies se levantan del fondo con una sombra muy suave. */
