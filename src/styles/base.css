@@ -42,6 +42,11 @@
   --shadow: 0 4px 22px rgba(0, 0, 0, .10);
   --fade: linear-gradient(rgba(255, 255, 255, 0), #fff 62%);
 
+  /* Velo que convierte el color vivo de una categoría en el tinte con el
+     que se pinta su superficie. Cuanto más opaco, más pálido el resultado.
+     El .83 es el valor que reproduce la paleta suave que se usaba antes. */
+  --tint: rgba(255, 255, 255, .83);
+
   /* Formas */
   --r-card: 20px;
   --r-pill: 99px;
@@ -175,15 +180,24 @@ button, input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
   color: #111;
 }
-/* La barra trae el color vivo de la categoría (ver catRow en shared/ui.js)
-   y se rebaja aquí a tinte. El 17% no es un número redondo: es el valor que
-   mejor reproduce la paleta suave que se usaba antes, con un desvío máximo
-   de 8/255 en el peor color. Un tema puede subirlo si su fondo lo pide. */
 .crow i {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   border-radius: var(--r-card);
-  opacity: .17;
+}
+
+/* Las tres superficies que llevan el color de una categoría: la barra del
+   ranking, la fila de movimiento y la casilla de la rejilla de añadir. Las
+   tres reciben el color VIVO en --c desde el JS y lo cubren aquí con el
+   mismo velo, así la misma categoría se ve igual en las tres pantallas.
+
+   El velo va como background-image y no como opacity a propósito: opacity
+   desvanecería también el texto que llevan encima la fila y la casilla. */
+.crow i,
+.mvl-cat,
+.grid button {
+  background-color: var(--c);
+  background-image: linear-gradient(var(--tint), var(--tint));
 }
 .crow div {
   position: relative;

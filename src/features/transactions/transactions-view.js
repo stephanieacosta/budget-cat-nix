@@ -4,7 +4,7 @@
 // =============================================================
 
 import { MAX_LIST } from "../../config/index.js";
-import { U, t, LOC, money, esc, cat, catName, col, periodLabel } from "../../services/index.js";
+import { U, t, LOC, money, esc, cat, catName, viv, periodLabel } from "../../services/index.js";
 
 export function listView({ tx, sum, P }) {
   const inP = x => x.date >= P.from && x.date <= P.to;
@@ -62,9 +62,12 @@ function txRow(x) {
   const c = cat(x.cat);
   const name = esc(catName(c));
   const isInc = x.t === "i";
+  // Los gastos se tiñen con el color de su categoría; los ingresos llevan
+  // su propio verde y no entran en ese sistema. La clase mvl-cat es la que
+  // activa el velo de base.css, para que el verde no se vea aclarado.
   return `
-    <div class="mvl ${isInc ? "mvl-inc" : ""}" data-e="${x.id}"
-         ${isInc ? "" : `style="background:${col(x.cat)}"`}>
+    <div class="mvl ${isInc ? "mvl-inc" : "mvl-cat"}" data-e="${x.id}"
+         ${isInc ? "" : `style="--c:${viv(x.cat)}"`}>
       <span class="e">${c.e}</span>
       <div class="g">${esc(x.note || name)}${x.note ? `<small>${name}</small>` : ""}</div>
       <b>${isInc ? "+" : ""}${money(x.amt)}</b>
