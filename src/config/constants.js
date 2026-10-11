@@ -37,10 +37,10 @@ export const EN_NAMES = {
 
 /** Categorías con las que arranca la app la primera vez. */
 export const DEFAULT_CATS = [
-  { id: 1, e: "🛒", n: "Compras", t: "g" },
+  { id: 1, e: "🛒", n: "Mercado", t: "g" },
   { id: 2, e: "🍔", n: "Comida", t: "g" },
   { id: 3, e: "🚌", n: "Transporte", t: "g" },
-  { id: 4, e: "🏠", n: "Alquiler", t: "g" },
+  { id: 4, e: "🏠", n: "Arriendo", t: "g" },
   { id: 5, e: "🎬", n: "Ocio", t: "g" },
   { id: 6, e: "💊", n: "Salud", t: "g" },
   { id: 7, e: "💪", n: "Gimnasio", t: "g" },
