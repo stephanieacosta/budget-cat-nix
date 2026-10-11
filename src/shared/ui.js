@@ -26,15 +26,15 @@ export const periodPill = () => `<button class="pill" id="pbtn">${periodLabel()}
  * según el puesto en el ranking, así se lee de un vistazo quién gasta más.
  *
  * La barra lleva el color VIVO de la categoría, el mismo que la leyenda de
- * las gráficas, y es el CSS quien lo rebaja a tinte con el velo --tint.
- * Antes usaba la paleta suave, que es casi blanca: sobre una tarjeta blanca
- * se quedaba en 1,13:1 y la fila parecía no tener color. Derivar el tinte
- * del color vivo mantiene una sola fuente de color por categoría y deja que
+ * las gráficas, y es el CSS quien lo rebaja a tinte con opacity. Antes
+ * usaba la paleta suave, que es casi blanca: sobre una tarjeta blanca se
+ * quedaba en 1,13:1 y la fila parecía no tener color. Derivar el tinte del
+ * color vivo mantiene una sola fuente de color por categoría y deja que
  * cada tema decida cuánta presencia quiere.
  */
 export const catRow = (catId, value, rank, isIncome) => `
   <div class="crow">
-    <i style="width:${Math.max(30, 100 - rank * 23.3)}%;--c:${viv(+catId)}"></i>
+    <i style="width:${Math.max(30, 100 - rank * 23.3)}%;background:${viv(+catId)}"></i>
     <div>
       <span>${cat(+catId).e} ${esc(catName(cat(+catId)))}</span>
       <b>${isIncome ? "+" : ""}${money(value)}</b>

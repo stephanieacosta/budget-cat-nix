@@ -11,7 +11,7 @@
 
 import {
   S, U, save, t, LOC, DECIMAL, money, parseAmount, formatAmount, iso, esc,
-  cat, catName, vividOf, catsOfType, rerender,
+  cat, catName, colorOf, catsOfType, rerender,
 } from "../../services/index.js";
 import { $, flash } from "../../shared/index.js";
 import { openCat } from "../categories/index.js";
@@ -21,7 +21,7 @@ export function catGrid() {
   $("grid").innerHTML =
     catsOfType(U.kind).map(c => `
       <button data-c="${c.id}" class="${U.editId !== null && U.selCat === c.id ? "sel" : ""}"
-              style="--c:${vividOf(c)}">
+              style="background:${colorOf(c)}">
         <span>${c.e}</span>${esc(catName(c))}
       </button>`).join("") +
     `<button class="more" id="nc"><span>＋</span>${t("new")}</button>`;

@@ -62,12 +62,11 @@ function donutView(ents, total, count) {
   const gap = n > 1 ? Math.min(isPie ? 0.3 : 0.6, 12 / n) : 0;
   const span = 100 - gap * n;   // circunferencia que queda para las porciones
 
-  // El recorrido arranca en cero, NO en medio hueco. Un <circle> abre y
-  // cierra su trazado en el mismo punto, y arrancar más adelante dejaba la
-  // rendija de arriba partida a caballo de esa costura: se veía más sucia
-  // que la de abajo. Empezando en cero, todas caen enteras dentro del
-  // recorrido. La simetría se consigue después girando el conjunto.
-  let offset = 0;
+  // El recorrido arranca en medio hueco, no en cero. Así cada rendija queda
+  // CENTRADA sobre la frontera entre dos porciones en vez de caer entera
+  // detrás de una de ellas; si no, con dos mitades el corte de arriba y el
+  // de abajo salen desplazados y el diámetro se ve torcido.
+  let offset = gap / 2;
   const arcs = ents.map(([c, v]) => {
     const slice = (v / total) * span;
     const svg = arc(r, width, viv(+c), slice, offset,
@@ -83,17 +82,11 @@ function donutView(ents, total, count) {
     ? `${selName}<br><b>${money(sel[1])}</b><br><small>${selPct}% · ${t("movs", count(+sel[0]))}</small>`
     : `<small>${U.sk === "g" ? t("totSpent") : t("totInc")}</small><br><b>${money(total)}</b>`;
 
-  // Girar el conjunto medio hueco es lo que deja cada rendija centrada sobre
-  // su frontera. Se hace aquí, sobre el dibujo ya montado, y no moviendo el
-  // punto de arranque, que es lo que partía la rendija de arriba.
-  // 3,6 es los grados que mide un 1% de circunferencia.
-  const spin = (gap / 2) * 3.6;
-
   return `
     <div class="dn">
       <svg viewBox="0 0 42 42">
         ${isPie ? "" : `<circle r="15.9155" cx="21" cy="21" fill="none" stroke="var(--pill)" stroke-width="5"/>`}
-        <g transform="rotate(${spin} 21 21)">${arcs}</g>
+        ${arcs}
       </svg>
       ${isPie ? "" : `<div><span>${center}</span></div>`}
     </div>

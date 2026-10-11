@@ -48,11 +48,6 @@
   --barInc: #5bc99c;
   --barExp: #ff8fb4;
 
-  /* Velo más fino que el del tema clásico: aquí las superficies de
-     categoría van sobre papel blanco, y con el velo de base el color
-     quedaba en 1,13:1 — la fila parecía no tener color ninguno. */
-  --tint: rgba(255, 255, 255, .5);
-
   --nav-bg: #ffffff;
   --nav-bd: #dce7f8;
   --nav-on: #ffd6e5;
@@ -383,12 +378,16 @@
 
 /* ---------- 9. Una huella al borde de cada categoría ---------- */
 
-/* OJO: aquí NO se puede tocar `position`. En base.css la barra es absolute
+/* Más tinte que en el tema clásico: aquí la fila va sobre papel blanco y
+   con el valor de base el color de la categoría no se distinguía.
+
+   OJO: aquí NO se puede tocar `position`. En base.css la barra es absolute
    y se estira con left/top/bottom; ponerla en relative convierte esos
    valores en meros desplazamientos y devuelve el <i> a inline, donde width
    no aplica — la barra pasa a medir cero y no se ve nada. Tampoco hace
    falta para la huella de abajo: un elemento absolute ya sirve de ancla a
    sus descendientes. */
+:root[data-skin="cats"] .crow i { opacity: .5; }
 
 /* La huella hereda la opacidad de la barra, así que va a plena intensidad
    para que no se desvanezca del todo. */
