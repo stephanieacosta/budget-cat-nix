@@ -50,13 +50,24 @@ function donutView(ents, total, count) {
   const width = isPie ? 21 : 5;       // un trazo tan grueso como el radio tapa el agujero
   const sel = ents.find(([c]) => +c === U.selC);
 
+  // La rendija entre porciones es decoración, no dato. Por eso se aparta
+  // ANTES de repartir: se descuenta del círculo el hueco de cada porción y
+  // lo que sobra se divide en proporción. Restárselo después a cada arco
+  // (que es lo que se hacía antes) tiene tres efectos feos: deforma las
+  // proporciones, borra del gráfico cualquier categoría más pequeña que la
+  // propia rendija, y abre una muesca aunque haya una sola porción, que no
+  // tiene de quién separarse. El tope de 12/n evita que con muchísimas
+  // categorías las rendijas se coman el círculo entero.
+  const n = ents.length;
+  const gap = n > 1 ? Math.min(isPie ? 0.3 : 0.6, 12 / n) : 0;
+  const span = 100 - gap * n;   // circunferencia que queda para las porciones
+
   let offset = 0;
   const arcs = ents.map(([c, v]) => {
-    const pct = (v / total) * 100;
-    // Un pelo menos de arco deja una rendija entre porciones.
-    const svg = arc(r, width, viv(+c), Math.max(0, pct - (isPie ? 0.3 : 0.6)), offset,
+    const slice = (v / total) * span;
+    const svg = arc(r, width, viv(+c), slice, offset,
       `data-cat="${c}" style="cursor:pointer;${sel && +c !== U.selC ? "opacity:.28" : ""}"`);
-    offset += pct;
+    offset += slice + gap;
     return svg;
   }).join("");
 

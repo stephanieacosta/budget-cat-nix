@@ -1,6 +1,6 @@
 // Service worker: permite usar la app sin internet.
 // Para forzar que todos los dispositivos descarguen una versión nueva, cambia VERSION.
-const VERSION = "budget-v4";
+const VERSION = "budget-v5";
 
 // Archivos que se guardan al instalar la app.
 // Si añades un módulo nuevo dentro de src/, acuérdate de ponerlo aquí.
