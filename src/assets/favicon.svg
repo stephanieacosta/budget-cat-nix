@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Icono de la pestaña. Va en SVG y no en PNG porque así se ve nítido
+       en cualquier tamaño y pesa menos que un solo PNG de 192px.
+
+       Diseñado para leerse a 16px, que es el tamaño real en la barra: las
+       formas son grandes y macizas, el fondo es sólido para que destaque
+       igual en barra clara que en barra oscura, y los detalles pequeños
+       (ojos, nariz) solo suman textura cuando se ve en grande.
+
+       El degradado es el mismo que usa la inicial de las notas en el tema
+       gatitos (.av en theme-cats.css). -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc2d4"/>
+      <stop offset="1" stop-color="#c3a9f2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="32" height="32" rx="8.5" fill="url(#sky)"/>
+
+  <!-- Orejas y cabeza van del mismo blanco para que formen una silueta
+       única: a 16px lo que se lee es el contorno, no las piezas. -->
+  <g fill="#fff">
+    <path d="M9.4 13.2 7.6 4.6l7.3 4.2z"/>
+    <path d="M22.6 13.2 24.4 4.6l-7.3 4.2z"/>
+    <ellipse cx="16" cy="18.4" rx="9.6" ry="8.4"/>
+  </g>
+
+  <circle cx="12.5" cy="17.4" r="1.7" fill="#6b4f63"/>
+  <circle cx="19.5" cy="17.4" r="1.7" fill="#6b4f63"/>
+  <path d="M14.6 20.8h2.8L16 22.6z" fill="#ff7fa5"/>
+</svg>

@@ -11,6 +11,7 @@ const CORE = [
 
   "/src/styles/base.css",
   "/src/styles/theme-cats.css",
+  "/src/assets/favicon.svg",
   "/src/assets/icon-192.png",
   "/src/assets/icon-512.png",
 
