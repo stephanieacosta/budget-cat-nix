@@ -62,7 +62,11 @@ function donutView(ents, total, count) {
   const gap = n > 1 ? Math.min(isPie ? 0.3 : 0.6, 12 / n) : 0;
   const span = 100 - gap * n;   // circunferencia que queda para las porciones
 
-  let offset = 0;
+  // El recorrido arranca en medio hueco, no en cero. Así cada rendija queda
+  // CENTRADA sobre la frontera entre dos porciones en vez de caer entera
+  // detrás de una de ellas; si no, con dos mitades el corte de arriba y el
+  // de abajo salen desplazados y el diámetro se ve torcido.
+  let offset = gap / 2;
   const arcs = ents.map(([c, v]) => {
     const slice = (v / total) * span;
     const svg = arc(r, width, viv(+c), slice, offset,

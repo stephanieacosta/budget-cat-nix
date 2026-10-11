@@ -379,11 +379,15 @@
 /* ---------- 9. Una huella al borde de cada categoría ---------- */
 
 /* Más tinte que en el tema clásico: aquí la fila va sobre papel blanco y
-   con el 11% de base el color de la categoría no se distinguía. */
-:root[data-skin="cats"] .crow i {
-  position: relative;
-  opacity: .5;
-}
+   con el valor de base el color de la categoría no se distinguía.
+
+   OJO: aquí NO se puede tocar `position`. En base.css la barra es absolute
+   y se estira con left/top/bottom; ponerla en relative convierte esos
+   valores en meros desplazamientos y devuelve el <i> a inline, donde width
+   no aplica — la barra pasa a medir cero y no se ve nada. Tampoco hace
+   falta para la huella de abajo: un elemento absolute ya sirve de ancla a
+   sus descendientes. */
+:root[data-skin="cats"] .crow i { opacity: .5; }
 
 /* La huella hereda la opacidad de la barra, así que va a plena intensidad
    para que no se desvanezca del todo. */
