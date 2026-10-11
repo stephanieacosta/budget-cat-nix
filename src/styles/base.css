@@ -25,7 +25,9 @@
   --red: #ff453a;
   --warn: #ff9f0a;
   --ok: #30b350;
-  --accent: #0a84ff;      /* enlaces y acciones */
+  --accent: #0a84ff;      /* color de acción, usado como FONDO */
+  --accent-ink: #0a84ff;  /* el mismo color, usado como TEXTO sobre fondo claro.
+                             Un tema puede necesitarlo más oscuro para que se lea. */
 
   /* Gráficas */
   --grid1: #e5e5e5;
@@ -658,7 +660,7 @@ dialog h3 { margin: 0 0 12px; }
 
 .sel { padding: 7px 9px; border: 0; border-radius: 10px; background: var(--pill); }
 
-.lnk { border: 0; background: none; color: var(--accent); font-weight: 600; cursor: pointer; }
+.lnk { border: 0; background: none; color: var(--accent-ink); font-weight: 600; cursor: pointer; }
 .lnk.wide { width: 100%; margin-top: 6px; }
 .lnk.muted { color: var(--mu); }
 .lnk.danger { width: 100%; margin-top: 6px; color: var(--red); }
