@@ -22,11 +22,11 @@
    acentos, estado activo y los gatos. */
 
 /* Los valores salen de medir el contraste (WCAG 2.1), no del ojo:
-   todos los pares de texto llegan a 4.5:1, y el fondo queda 1.41:1
-   por debajo de las superficies blancas para que se despeguen. */
+   todos los pares de texto llegan a 4.5:1, y el fondo queda por debajo
+   de las superficies blancas para que se despeguen. */
 
 :root[data-skin="cats"] {
-  --bg: #ccdaf2;          /* azul empolvado: el fondo, no el contenido */
+  --bg: #c2d4ef;          /* azul empolvado: el fondo, no el contenido */
   --tx: #2e2c44;          /* tinta azulada, nunca negro puro */
   --mu: #5b5878;
   --ln: #b9c9e8;
@@ -53,12 +53,21 @@
   --nav-on: #ffd6e5;
   --shadow: 0 8px 26px rgba(70, 95, 150, .26);
 
-  /* La hoja: la superficie sobre la que vive TODO el contenido */
-  --sheet: #ffffff;
-  --sheet-edge: #f2d7e3;  /* las dos líneas verticales que la delimitan */
-  --sheet-rule: #eef3fb;  /* la pauta horizontal, como papel de cuaderno */
+  /* La ficha: cada bloque de contenido es una pieza de papel suelta.
+     La sombra va en dos capas a propósito — una pegada al borde y otra
+     amplia y difusa. Es lo que hace que se lea como un objeto apoyado
+     y no como un rectángulo pintado. */
+  --tile: #ffffff;
+  --tile-sh: 0 1px 2px rgba(60, 85, 140, .13), 0 7px 20px rgba(60, 85, 140, .14);
+  --r-tile: 24px;
 
-  --fade: linear-gradient(rgba(255, 255, 255, 0), #ffffff 62%);
+  /* El degradado del pie funde hacia el fondo, no hacia blanco: por
+     detrás de la barra ya no hay hoja, hay mantel. */
+  --fade: linear-gradient(transparent, var(--bg) 62%);
+
+  /* El mantel. Va en una variable porque lo usan dos sitios: el fondo de
+     la página y el panel de añadir, que es una capa aparte por encima. */
+  --cats: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg fill='%23a9c0e5'%3E%3Cpath d='M44 44l-1.8-10 9 5.2z'/%3E%3Cpath d='M66 44l1.8-10-9 5.2z'/%3E%3Cellipse cx='55' cy='52' rx='13.5' ry='11.5'/%3E%3Cpath d='M62 64q12-2 10-15' stroke='%23a9c0e5' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3Cg fill='%23a9c0e5' opacity='.85'%3E%3Cpath d='M144 150l-1.6-9 8 4.6z'/%3E%3Cpath d='M164 150l1.6-9-8 4.6z'/%3E%3Cellipse cx='154' cy='157' rx='12' ry='10.5'/%3E%3C/g%3E%3Cg fill='%23f6bdd3'%3E%3Cellipse cx='156' cy='52' rx='4.4' ry='5.3'/%3E%3Ccircle cx='149' cy='43' r='1.9'/%3E%3Ccircle cx='154.5' cy='39.5' r='1.9'/%3E%3Ccircle cx='160' cy='40.5' r='1.9'/%3E%3Ccircle cx='164' cy='45' r='1.8'/%3E%3Cellipse cx='50' cy='152' rx='4' ry='4.8' opacity='.9'/%3E%3Ccircle cx='44' cy='144' r='1.7' opacity='.9'/%3E%3Ccircle cx='49' cy='140.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='54' cy='141.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='58' cy='145.5' r='1.6' opacity='.9'/%3E%3C/g%3E%3C/svg%3E");
 
   /* Todo más blandito */
   --r-card: 26px;
@@ -73,51 +82,105 @@
 /* Fondo: gatos en azul y huellas en rosa, bien espaciados para que en
    pantalla ancha sean textura y no un estampado que compita. */
 :root[data-skin="cats"] body {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg fill='%23b4c8e8'%3E%3Cpath d='M44 44l-1.8-10 9 5.2z'/%3E%3Cpath d='M66 44l1.8-10-9 5.2z'/%3E%3Cellipse cx='55' cy='52' rx='13.5' ry='11.5'/%3E%3Cpath d='M62 64q12-2 10-15' stroke='%23b4c8e8' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3Cg fill='%23b4c8e8' opacity='.85'%3E%3Cpath d='M144 150l-1.6-9 8 4.6z'/%3E%3Cpath d='M164 150l1.6-9-8 4.6z'/%3E%3Cellipse cx='154' cy='157' rx='12' ry='10.5'/%3E%3C/g%3E%3Cg fill='%23f6bdd3'%3E%3Cellipse cx='156' cy='52' rx='4.4' ry='5.3'/%3E%3Ccircle cx='149' cy='43' r='1.9'/%3E%3Ccircle cx='154.5' cy='39.5' r='1.9'/%3E%3Ccircle cx='160' cy='40.5' r='1.9'/%3E%3Ccircle cx='164' cy='45' r='1.8'/%3E%3Cellipse cx='50' cy='152' rx='4' ry='4.8' opacity='.9'/%3E%3Ccircle cx='44' cy='144' r='1.7' opacity='.9'/%3E%3Ccircle cx='49' cy='140.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='54' cy='141.5' r='1.7' opacity='.9'/%3E%3Ccircle cx='58' cy='145.5' r='1.6' opacity='.9'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: var(--cats);
   background-size: 200px 200px;
 }
 
-/* ---------- 1b. La hoja ----------
-   El contenido es una columna vertical, así que se le da una superficie
-   propia: una hoja de papel centrada, con dos líneas verticales que la
-   delimitan y una pauta horizontal muy tenue. El estampado de gatos pasa
-   a vivir ALREDEDOR, no debajo del texto — que era lo que hacía ilegibles
-   los títulos pequeños. */
-
-:root[data-skin="cats"] main {
-  min-height: 100vh;
-  border-left: 1.5px solid var(--sheet-edge);
-  border-right: 1.5px solid var(--sheet-edge);
-  background-color: var(--sheet);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 33px,
-    var(--sheet-rule) 33px 34px
-  );
-  box-shadow: 0 0 38px rgba(70, 95, 150, .16);
+/* El panel de añadir es una capa fija por encima de todo, así que no
+   hereda el fondo de body: se le repite el mantel para que al abrirlo
+   no se corte el estampado. */
+:root[data-skin="cats"] #add {
+  background-color: var(--bg);
+  background-image: var(--cats);
+  background-size: 200px 200px;
 }
 
-/* El degradado del pie se recorta al ancho de la hoja, o taparía el fondo. */
-:root[data-skin="cats"] .fade {
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(100%, 480px);
+/* ---------- 1b. Las fichas ----------
+   No hay hoja de papel. El mantel de gatos llega de lado a lado y cada
+   bloque de contenido se apoya encima como una pieza recortada.
+
+   La regla, que es lo que mantiene todo legible: SI UN BLOQUE LLEVA
+   LETRA, LLEVA FICHA. Ningún texto toca el estampado — eso era lo que
+   hacía ilegibles los títulos pequeños y lo que motivó la hoja. Lo que
+   respira entre fichas es el fondo, y ahí es donde luce.
+
+   Al añadir una pantalla nueva, mirar si su contenedor está en esta
+   lista; si lleva texto y no está, hay que añadirlo. */
+
+:root[data-skin="cats"] .top,
+:root[data-skin="cats"] .balw,
+:root[data-skin="cats"] .empty,
+:root[data-skin="cats"] .hb,
+:root[data-skin="cats"] .lg,
+:root[data-skin="cats"] .mbs,
+:root[data-skin="cats"] .lc,
+:root[data-skin="cats"] .hd {
+  border-radius: var(--r-tile);
+  background: var(--tile);
+  box-shadow: var(--tile-sh);
 }
 
-/* El panel de añadir recibe el mismo tratamiento: hoja centrada
-   sobre el fondo azul, en vez de ocupar toda la pantalla. */
-:root[data-skin="cats"] #add { padding-left: 0; padding-right: 0; }
+/* Cada una necesita su propio respiro por dentro: en el diseño clásico
+   eran texto suelto y no tenían relleno ninguno. */
+:root[data-skin="cats"] .top     { padding: 8px 10px 12px; }
+:root[data-skin="cats"] .balw    { margin: 16px 0 14px; padding: 20px 16px 24px; }
+:root[data-skin="cats"] .balw-tight { margin: 14px 0 12px; padding: 16px 16px 18px; }
+:root[data-skin="cats"] .empty   { margin: 4px 0 12px; padding: 20px 16px; }
+:root[data-skin="cats"] .hb      { margin: 12px 0; padding: 14px 16px 16px; }
+:root[data-skin="cats"] .lc      { padding: 12px 8px; }
+:root[data-skin="cats"] .hd      { margin-bottom: 16px; padding: 10px 12px 10px 14px; }
 
-:root[data-skin="cats"] .ac {
-  min-height: 100%;
-  padding: 6px 16px 28px;
-  border-left: 1.5px solid var(--sheet-edge);
-  border-right: 1.5px solid var(--sheet-edge);
-  background: var(--sheet);
-  box-shadow: 0 0 38px rgba(70, 95, 150, .16);
+/* La leyenda de la dona: cada línea pasa de fila con raya a ficha suelta. */
+:root[data-skin="cats"] .lg {
+  margin-bottom: 8px;
+  padding: 12px 16px;
+  border-bottom: 0;
+}
+:root[data-skin="cats"] .lg.on {
+  background: #fff1f6;
+  box-shadow: var(--tile-sh), inset 0 0 0 2px var(--accent);
 }
 
-/* Las superficies se levantan del fondo con una sombra muy suave. */
+/* La comparativa de meses crece para que las barras no se aplasten
+   contra el relleno nuevo de la ficha. */
+:root[data-skin="cats"] .mbs {
+  height: 178px;
+  padding: 14px 12px 8px;
+}
+
+/* Las etiquetas de sección no son bloques anchos: son pestañas de
+   archivador. Esto es lo que rompe el ritmo de rectángulos y evita que
+   la pantalla vuelva a parecer una hoja, solo que troceada. */
+:root[data-skin="cats"] .lab,
+:root[data-skin="cats"] .barlab {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 15px 6px 13px;
+  border-radius: 99px;
+  background: var(--tile);
+  box-shadow: var(--tile-sh);
+  color: var(--accent-ink);
+}
+
+/* La leyenda del pie es flex y tiene que seguir centrada: se encoge al
+   ancho de su contenido y los márgenes automáticos hacen el resto. */
+:root[data-skin="cats"] .legend {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 7px 16px;
+  border-radius: 99px;
+  background: var(--tile);
+  box-shadow: var(--tile-sh);
+}
+
+/* La fila de categoría es la excepción traicionera: su color lo pone una
+   barra interior que solo llega al 30% del ancho en las categorías bajas.
+   Sobre la hoja blanca daba igual; sobre el mantel, el importe de la
+   derecha se quedaba leyéndose encima de los gatos. Lleva papel debajo. */
+:root[data-skin="cats"] .crow { background: var(--tile); }
+
+/* Las superficies que ya tenían color propio solo necesitan despegarse. */
 :root[data-skin="cats"] .tot,
 :root[data-skin="cats"] .crow,
 :root[data-skin="cats"] .mvl,
@@ -125,8 +188,27 @@
 :root[data-skin="cats"] .tipbox,
 :root[data-skin="cats"] .stats3 div,
 :root[data-skin="cats"] .grid button,
+:root[data-skin="cats"] .ar,
+:root[data-skin="cats"] .chips2 button,
+:root[data-skin="cats"] .ctypes button,
 :root[data-skin="cats"] .yt {
-  box-shadow: 0 2px 8px rgba(80, 105, 160, .10);
+  box-shadow: var(--tile-sh);
+}
+
+/* Los chips de tipo de gráfica usaban var(--bg) de fondo: con el fondo
+   azul se fundían con el mantel. */
+:root[data-skin="cats"] .ctypes button {
+  background: var(--tile);
+  border-color: #dbe4f4;
+  color: var(--mu);
+}
+
+/* El enlace de borrar es texto suelto dentro del panel de añadir. */
+:root[data-skin="cats"] .lnk.danger {
+  padding: 11px;
+  border-radius: 99px;
+  background: var(--tile);
+  box-shadow: var(--tile-sh);
 }
 
 /* Los diálogos, en blanco, para que destaquen sobre el velo. */
@@ -251,10 +333,14 @@
 
 /* ---------- 8. El presupuesto lo recorre un gatito ---------- */
 
+/* La pista va en blanco: el gris azulado de base.css se confundía con
+   el mantel y la barra parecía flotar sin raíl. */
 :root[data-skin="cats"] .bar {
   height: 9px;
   overflow: visible;          /* para que la carita pueda sobresalir */
-  margin: 10px 4px 6px;
+  margin: 10px 4px 8px;
+  background: var(--tile);
+  box-shadow: var(--tile-sh);
 }
 :root[data-skin="cats"] .bar i { position: relative; overflow: visible; }
 
@@ -288,15 +374,28 @@
 
 /* ---------- 10. El selector de periodo lleva una patita ---------- */
 
+/* Va en rosa pálido, no en el gris azulado de antes: ahora vive dentro
+   de la ficha blanca del balance y con el tono claro no se distinguiría
+   del papel. El rosa además avisa de que se puede pulsar. */
 :root[data-skin="cats"] .pill {
-  border-color: #dbe4f4;
-  color: var(--mu);
-  background: var(--pill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cg fill='%23ef7ca2'%3E%3Cellipse cx='7' cy='9.8' rx='3.6' ry='3.9'/%3E%3Ccircle cx='2.3' cy='4.4' r='1.65'/%3E%3Ccircle cx='6' cy='2.2' r='1.65'/%3E%3Ccircle cx='9.9' cy='2.8' r='1.65'/%3E%3Ccircle cx='12.2' cy='6.5' r='1.55'/%3E%3C/g%3E%3C/svg%3E") no-repeat right 14px center;
+  border-color: #ffd3e1;
+  color: var(--accent-ink);
+  background: #fff1f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cg fill='%23ef7ca2'%3E%3Cellipse cx='7' cy='9.8' rx='3.6' ry='3.9'/%3E%3Ccircle cx='2.3' cy='4.4' r='1.65'/%3E%3Ccircle cx='6' cy='2.2' r='1.65'/%3E%3Ccircle cx='9.9' cy='2.8' r='1.65'/%3E%3Ccircle cx='12.2' cy='6.5' r='1.55'/%3E%3C/g%3E%3C/svg%3E") no-repeat right 14px center;
 }
 
 /* ---------- 11. La dona es un gato enroscado ---------- */
 
-:root[data-skin="cats"] .dn { z-index: 0; }
+/* El agujero de la dona lleva texto, así que necesita ficha como todo lo
+   demás — pero redonda y solo del tamaño del hueco. Si el disco blanco
+   llegara más lejos taparía las orejas y la cola, que son pseudo-elementos
+   con z-index:-1 y van por DETRÁS del fondo de este bloque.
+   El 33% sale de la geometría del SVG: con r=15.9155 y trazo de 5 sobre un
+   lienzo de 42, el borde interior del anillo cae en el 31,9%. El disco se
+   mete un punto por debajo para que no quede rendija. */
+:root[data-skin="cats"] .dn {
+  z-index: 0;
+  background: radial-gradient(circle at 50% 50%, var(--tile) 0 33%, transparent 33.5%);
+}
 
 /* Orejas arriba */
 :root[data-skin="cats"] .dn::before {
@@ -372,7 +471,13 @@
 :root[data-skin="cats"] .crow i { border-radius: 24px; }
 
 :root[data-skin="cats"] .grid button { border-radius: 22px; }
-:root[data-skin="cats"] .grid .more { border-color: #ffb8cf; color: var(--accent-ink); }
+/* El botón de categoría nueva no tiene color propio, así que se le pone
+   el papel: sin él, la sombra de ficha caería sobre el mantel desnudo. */
+:root[data-skin="cats"] .grid .more {
+  border-color: #ffb8cf;
+  background: var(--tile);
+  color: var(--accent-ink);
+}
 
 :root[data-skin="cats"] .big {
   border: 2px dashed #ffbcd3;
