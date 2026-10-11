@@ -175,7 +175,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
   color: #111;
 }
-.crow i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: var(--r-card); }
+/* La barra trae el color vivo de la categoría (ver catRow en shared/ui.js)
+   y se rebaja aquí a tinte. El 17% no es un número redondo: es el valor que
+   mejor reproduce la paleta suave que se usaba antes, con un desvío máximo
+   de 8/255 en el peor color. Un tema puede subirlo si su fondo lo pide. */
+.crow i {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: var(--r-card);
+  opacity: .17;
+}
 .crow div {
   position: relative;
   display: flex;

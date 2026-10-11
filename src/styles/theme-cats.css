@@ -114,6 +114,7 @@
 :root[data-skin="cats"] .lg,
 :root[data-skin="cats"] .mbs,
 :root[data-skin="cats"] .lc,
+:root[data-skin="cats"] .dn,
 :root[data-skin="cats"] .hd {
   border-radius: var(--r-tile);
   background: var(--tile);
@@ -128,6 +129,25 @@
 :root[data-skin="cats"] .empty   { margin: 4px 0 12px; padding: 20px 16px; }
 :root[data-skin="cats"] .hb      { margin: 12px 0; padding: 14px 16px 16px; }
 :root[data-skin="cats"] .lc      { padding: 12px 8px; }
+
+/* La dona y el pastel pasan a ficha de ancho completo, como el resto de
+   gráficas. El dibujo sigue midiendo 220 y se centra con margin auto: así
+   la caja puede ser ancha sin que el SVG se estire ni se descoloque, y el
+   agujero de la dona queda blanco por el fondo de la propia ficha — antes
+   lo tapaba un disco aparte que no llegaba a cubrirlo. */
+:root[data-skin="cats"] .dn {
+  width: auto;
+  height: auto;
+  margin: 12px 0;
+  padding: 16px 0;
+}
+:root[data-skin="cats"] .dn svg {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: 220px;
+  margin: 0 auto;
+}
 :root[data-skin="cats"] .hd      { margin-bottom: 16px; padding: 10px 12px 10px 14px; }
 
 /* La leyenda de la dona: cada línea pasa de fila con raya a ficha suelta. */
@@ -358,8 +378,15 @@
 
 /* ---------- 9. Una huella al borde de cada categoría ---------- */
 
-:root[data-skin="cats"] .crow i { position: relative; }
+/* Más tinte que en el tema clásico: aquí la fila va sobre papel blanco y
+   con el 11% de base el color de la categoría no se distinguía. */
+:root[data-skin="cats"] .crow i {
+  position: relative;
+  opacity: .5;
+}
 
+/* La huella hereda la opacidad de la barra, así que va a plena intensidad
+   para que no se desvanezca del todo. */
 :root[data-skin="cats"] .crow i::after {
   content: "";
   position: absolute;
@@ -368,7 +395,6 @@
   width: 20px;
   height: 20px;
   margin-top: -10px;
-  opacity: .5;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cg fill='%23fff'%3E%3Cellipse cx='10' cy='14' rx='5.2' ry='5.7'/%3E%3Ccircle cx='3.4' cy='6.4' r='2.3'/%3E%3Ccircle cx='8.7' cy='3.2' r='2.3'/%3E%3Ccircle cx='14.3' cy='4' r='2.3'/%3E%3Ccircle cx='17.6' cy='9.4' r='2.2'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
 }
 
@@ -383,43 +409,18 @@
   background: #fff1f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cg fill='%23ef7ca2'%3E%3Cellipse cx='7' cy='9.8' rx='3.6' ry='3.9'/%3E%3Ccircle cx='2.3' cy='4.4' r='1.65'/%3E%3Ccircle cx='6' cy='2.2' r='1.65'/%3E%3Ccircle cx='9.9' cy='2.8' r='1.65'/%3E%3Ccircle cx='12.2' cy='6.5' r='1.55'/%3E%3C/g%3E%3C/svg%3E") no-repeat right 14px center;
 }
 
-/* ---------- 11. La dona es un gato enroscado ---------- */
+/* ---------- 11. La dona ----------
 
-/* El agujero de la dona lleva texto, así que necesita ficha como todo lo
-   demás — pero redonda y solo del tamaño del hueco. Si el disco blanco
-   llegara más lejos taparía las orejas y la cola, que son pseudo-elementos
-   con z-index:-1 y van por DETRÁS del fondo de este bloque.
-   El 33% sale de la geometría del SVG: con r=15.9155 y trazo de 5 sobre un
-   lienzo de 42, el borde interior del anillo cae en el 31,9%. El disco se
-   mete un punto por debajo para que no quede rendija. */
-:root[data-skin="cats"] .dn {
-  z-index: 0;
-  background: radial-gradient(circle at 50% 50%, var(--tile) 0 33%, transparent 33.5%);
-}
+   Aquí vivían unas orejas y una cola de gato detrás del círculo. Se
+   quitaron a propósito: la cola sale por un solo lado y rompía la simetría
+   de la gráfica, y en el pastel —que llena el lienzo entero— tapaba las
+   orejas y dejaba al gato reducido a una cola suelta. El tema ya tiene
+   gatos en el logo, la barra, el botón de añadir y las pantallas vacías;
+   la gráfica se lee mejor limpia y centrada.
 
-/* Orejas arriba */
-:root[data-skin="cats"] .dn::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 108px;
-  height: 26px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='26'%3E%3Cpath d='M12 26C12 13 16 4 23 1c4 6 6.4 15 6.4 25z' fill='%23ffc2d2'/%3E%3Cpath d='M96 26C96 13 92 4 85 1c-4 6-6.4 15-6.4 25z' fill='%23ffc2d2'/%3E%3Cpath d='M16.6 25.4c0-8.6 2.6-14.6 6.4-16.6 2.2 4.6 3.6 10.6 3.6 16.6z' fill='%23ff8fab'/%3E%3Cpath d='M91.4 25.4c0-8.6-2.6-14.6-6.4-16.6-2.2 4.6-3.6 10.6-3.6 16.6z' fill='%23ff8fab'/%3E%3C/svg%3E") no-repeat center / contain;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Y una cola que sale por abajo */
-:root[data-skin="cats"] .dn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cpath d='M166 172q30 16 44-6 10-16-5-27' stroke='%23ffc2d2' stroke-width='11' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain;
-  z-index: -1;
-  pointer-events: none;
-}
+   Para recuperarlos haría falta devolver los pseudo-elementos y, ojo, que
+   el fondo de la ficha ya no los taparía: los hijos con z-index negativo
+   se pintan por encima del fondo de su padre. */
 
 /* ---------- 12. La inicial de la nota también tiene orejas ---------- */
 
